@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			.father {
+				margin: 50px auto;
+				width: 700px;
+				height: 300px;
+			}
+
+			h2 {
+
+				text-align: center;
+			}
+
+			.son {
+				width: 700px;
+				height: 200px;
+				margin-top: 30px;
+				position: relative;
+			}
+
+			.son #box1 {
+				float: left;
+				font-size: 23px;
+				text-align: center;
+				line-height: 200px;
+				width: 350px;
+				height: 200px;
+				background-color: greenyellow;
+			}
+
+			.son #box2 {
+				float: left;
+				width: 350px;
+				height: 200px;
+				text-align: center;
+				line-height: 200px;
+				font-size: 23px;
+				background-color: red;
+			}
+			#over{
+				position: absolute;
+				font-size: 23px;
+				text-align: center;
+				line-height: 200px;
+				width: 350px;
+				height: 200px;
+				background-color: #cccccc;
+				opacity: 0;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="father">
+			<h2>秀气小书生</h2>
+			<div class="son">
+				<div id="box1">开始</div>
+				<div id="box2">停止</div>
+				<div id="over">开始</div>
+			</div>
+		</div>
+		<script>
+			var hh = document.querySelector("h2");
+			// console.log(hh);
+			var box1 = document.getElementById("box1");
+			var box2 = document.getElementById("box2");
+			var over = document.getElementById("over");
+			var name1 = ["德马", "若手", "寒冰", "小炮", "猴子", "德邦", "蛮王"];
+			var colors = ["#f26395", "#62efab", "#ef7658", "#ffe868", "#80e3f7", "#d781f9", "#03C", "#0F0", "#0FF", "#F00",
+				"#FF9"
+			];
+			var term=null;
+			box1.onclick = function() {
+                       over.style.display="block"//bug:连续点多次,暂停失效.  原因:由于出现多个定时器无法关掉上一个.  解决办法:添加遮罩层;
+				term = setInterval(() => {
+					var rand1 = Math.floor(Math.random() * name1.length);
+					var rand2 = Math.floor(Math.random() * colors.length);
+					hh.innerHTML = name1[rand1];
+					box1.style.backgroundColor = colors[rand2];
+				}, 100)
+			};
+
+			box2.onclick = function() {
+				hh.innerHTML="继续";
+				 over.style.display="none";
+				clearInterval(term);
+			};
+		</script>
+	</body>
+</html>
